@@ -1,0 +1,368 @@
+{
+	"intents": [
+		{ "tag": "", "patterns": [], "responses": [], "context_set": "" },
+
+		{
+			"tag": "fees",
+			"patterns": [
+				"How much are the fees for this year",
+				"tell me the fees of my academic year",
+				"much fees year",
+				"tell fees academic year",
+				"fees"
+			],
+			"responses": [
+				"you can know the fees from here: http://myhu.helwan.edu.eg/login"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": ["Timetable", "schedule"],
+			"patterns": [
+				"give me the time table",
+				"give me the schedule",
+				"give time table",
+				"give schedule"
+			],
+			"responses": [
+				"you will find the time table here: http://education.fcih.helwan.edu.eg/portal/student/dashboard"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "Convex"],
+			"patterns": [
+				"give me some material for convex please",
+				"give material convex please",
+				"convex material",
+				"convex",
+				"send convex lectures"
+			],
+			"responses": [
+				"you can find some material for convex here : https://www.youtube.com/watch?v=McLq1hEq3UY&list=PL3940DD956CDF0622"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "AI"],
+			"patterns": [
+				"i need some material for ai",
+				"give me material for ai",
+				"ai lectures",
+				"ai project",
+				"send more material fos ai",
+				"need material ai",
+				"ai material"
+			],
+			"responses": [
+				"Amr ghoneim playlist for AI : https://www.youtube.com/watch?v=sO6VGgBHppo&list=PLsnvpvHuTUbAZr0n65TgytBK6bHdT33A7", "AI lectures by marwan: https://drive.google.com/drive/folders/1aiBeFhpmFmzdTQPzxKx6ZiRyPfo7-xY2?usp=sharing" , "DR. Amr drive: https://drive.google.com/drive/folders/1idzWQqb_Fb-BPLBPABPRMYLE-Pr7AS8j?fbclid=IwAR096X9bGtoixCqPy6ix9QN1sPa62mMCJF4QoL1PF4WJ0zaoP6Dj4ToiYJk"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "SA"],
+			"patterns": [
+				"i need some material for sa",
+				"give me material for sa",
+				"sa lectures",
+				"sa project",
+				"send more material fos sa",
+				"need material sa",
+				"sa material",
+				"sa"
+			],
+			"responses": [
+				"here is some materials for sa made by marawan mohamed : https://www.youtube.com/watch?v=ggGmXba7yYU&list=PLjQhZRrolr67Nkq7ZYXfkUt87Q_6B5VxJ&pp=iAQB",
+				"here you can find D.MohamedEldesoky playlist for sa: https://www.youtube.com/watch?v=9jrN5BPx4MI&list=PL1DUmTEdeA6I-bsfaErW12ro4_6hC7fSp "
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "ML"],
+			"patterns": [
+				"i need some material for ML",
+				"send ml lectures",
+				"need material ml",
+				"ml",
+				"ml material",
+				"machine learning"
+			],
+			"responses": [
+				"Hesham asem playlist for ML : https://www.youtube.com/watch?v=5_GKIhoXKyI&list=PL6-3IRz2XF5UJE2PbY7UU4SHi7UpV1mXo"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "Exams",
+			"patterns": [
+				"can you tell me the location of my exam?",
+				"tell location exam",
+				"i want to know when my exams",
+				"want know exams"
+			],
+			"responses": [
+				"you can know informations about your exams from this link: http://education.fcih.helwan.edu.eg/portal/student/exams-timess"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": ["material", "db2"],
+			"patterns": [
+				"send db2 lectures",
+				"i need database2 material",
+				"send lectures",
+				"need material"
+			],
+			"responses": [
+				"you will find db2 material here for Dr Iyad Husni: https://www.youtube.com/watch?v=J5_pw5HP2JM&list=PLbJQU7iCpoGBdA-DtxlFxJ9rAyzUlLw2r",
+				"Mohamed Eldesouky playlist for database2: https://www.youtube.com/watch?v=3VU16LGMqHI&list=PL1DUmTEdeA6LiVWHeITVLTQ6ht_5xPCh8"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "os2"],
+			"patterns": [
+				"i need os2 materials",
+				"send operation system2 lectures",
+				"need materials",
+				"send operation lectures"
+			],
+			"responses": [
+				"you will find os2 material here: https://drive.google.com/drive/u/0/folders/1PXilRVUqKrl9vvi_ikJ0bTNCInwRutKy?fbclid=IwAR3IjNnkSdjmHFObOqOtUo47BrdnaebeimCkmTIIpO1fF13AagtkmryXN38"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "Multimedia"],
+			"patterns": [
+				"send multimedia material",
+				"send multimedia lectures",
+				"multimedia lectures",
+				"multimedia material"
+			],
+			"responses": [
+				"here you will find multimedia material: https://drive.google.com/drive/u/0/folders/1WxDbU0tcEu9-aPyiL_hGRWWifaB0HRha?fbclid=IwAR3IjNnkSdjmHFObOqOtUo47BrdnaebeimCkmTIIpO1fF13AagtkmryXN38"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["Drive", "TermMaterials"],
+			"patterns": [
+				"send level3 material",
+				"send level3 lectures",
+				"i want the first term drive for level3",
+				"i want the second term drive for level3",
+				"send material",
+				"send lectures",
+				"want first term drive",
+				"want second term drive"
+			],
+			"responses": [
+				"here you will find some material for level3 https://drive.google.com/drive/u/0/folders/1PH0lBMNEFAd3eG4jajKfHILlbmaXkR6s?fbclid=IwAR3IjNnkSdjmHFObOqOtUo47BrdnaebeimCkmTIIpO1fF13AagtkmryXN38"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "Sections",
+			"patterns": [
+				"give me sections timetable",
+				"give sections timetable",
+				"send sections file"
+			],
+			"responses": [],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "SE"],
+			"patterns": [
+				"give me SE material",
+				"give se material",
+				"send Software Engineering playlist"
+			],
+			"responses": [
+				"here you can find Marawan Mohamed playlist for SE : https://www.youtube.com/watch?v=jJsFBWTzlow&list=PLjQhZRrolr64R92Y_A03tRiSAbzLZegkg&pp=iAQB"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "ByteExchange",
+			"patterns": [
+				"what is ByteExchange",
+				"tell me about ByteExchange",
+				"byteexchange",
+				"tell byteexchange"
+			],
+			"responses": [
+				"byte Exchange,This is a group created by Marwan Mohamed to help students develop themselves in study and work"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "MarawanYT",
+			"patterns": [
+				"Give me marawan mohamed youtube",
+				"i need youtube link for marawan mohamed channel",
+				"give marawan mohamed youtube",
+				"need youtube link marawan mohamed channel",
+				"marawan mohamed",
+				"marawan",
+				"marwan"
+			],
+			"responses": [
+				"here you will find marawan mohamed channnel: https://www.youtube.com/@Marwan-ol8ie/featured"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "AmrGhoneimYT",
+			"patterns": [
+				"Give me Dr Amr Ghoneim channel",
+				"i need youtube link for amr ghoneim channel",
+				"give dr amr ghoneim channel",
+				"need youtube link amr ghoneim channel"
+			],
+			"responses": [
+				"here you will find amr ghoneim channel: https://www.youtube.com/@AmrSGhoneim"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "MohamedEldesokyYT",
+			"patterns": [
+				"Give me mohamed eldesoky channel",
+				"i need youtube link for mohamed eldesoky channel",
+				"give mohamed eldesoky channel",
+				"need youtube link mohamed eldesoky channel"
+			],
+			"responses": [
+				"here you will find Mohemd Eldesoky channel:https://www.youtube.com/@DesoukiEgypt"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "EmailPattern",
+			"patterns": [
+				"i want to know the college email pattern",
+				"i want to know my email in college",
+				"want know college email pattern",
+				"want know email college"
+			],
+			"responses": [
+				"Don't worry rafiki will help you, Email pattern is: YourName_YourID@fci.helwan.edu.eg"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "CollegeSite",
+			"patterns": [
+				"send fcai facebook page",
+				"give me the facebook page for our college",
+				"give facebook page college"
+			],
+			"responses": [
+				"here you will find the Fcai official group : https://www.facebook.com/groups/435176807905112"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "locations",
+			"patterns": [
+				"send all the locations for all labs and halls",
+				"send locations labs halls"
+			],
+			"responses": [
+				"here you will find all the locations : https://www.facebook.com/photo/?fbid=10168501081815643&set=gm.790437072379082&idorvanity=435176807905112"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "HossamShamardan",
+			"patterns": [
+				"who is hossam shamardan?",
+				"tell me about hossam shamardan",
+				"hossam shamardan",
+				"tell hossam shamardan"
+			],
+			"responses": ["it's better not to say", "i can't say this here"],
+			"context_set": ""
+		},
+		{
+			"tag": "SecondYear",
+			"patterns": [
+				"send my second term material for level2 ",
+				"i need some material for level2",
+				"send second term material",
+				"need material"
+			],
+			"responses": [
+				"here you will find some material for level2 secondterm: https://drive.google.com/drive/u/0/folders/1WWyG9zerNf_OZtkJVqDpqcHvUZVg8is_  , and some exams:https://drive.google.com/drive/folders/16hz1sYlF-wYLSN8CMSFR44-uYTaHvhjb"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "BigData"],
+			"patterns": [
+				"i need some materials for BigData",
+				"send bigdata teams group",
+				"need materials bigdata"
+			],
+			"responses": [
+				"you will find big data material here: https://teams.microsoft.com/l/channel/19%3aXG1Gnbu3S1gOvd3v8zVReBDFoSrX2Zl9OYm5FvLOSBs1%40thread.tacv2/General?groupId=afc7175d-5d91-4feb-96f0-cca1683920b3&tenantId=aadc0e0a-65ee-471a-99a1-9f86faecbaed"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "algorithms"],
+			"patterns": [
+				"send algorithms material",
+				"i need algorithms lectures",
+				"send algorithms drive and channel link",
+				"need algorithms lectures",
+				"send algorithms drive channel link"
+			],
+			"responses": [
+				"Algorithms material..  Drive Link : https://bit.ly/3qFuNoZ , Channel Link : https://bit.ly/3Lcaibg"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["material", "Discrete"],
+			"patterns": [
+				"give me discrete maths material",
+				"i want discrete maths playlist",
+				"give discrete maths material",
+				"want discrete maths playlist"
+			],
+			"responses": [
+				"here is the playlist for disccrete maths: https://youtube.com/playlist?list=PLp4VgraT9FJB0n-RLmMcqLoO4nVYwQZEU"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "RegisterCourses",
+			"patterns": [
+				"Give me register courses link",
+				"i want to register courses",
+				"give register courses link",
+				"want register courses"
+			],
+			"responses": [
+				"here is the link: http://education.fcih.helwan.edu.eg/portal/student/register-courses"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": "هلس",
+			"patterns": [
+				"ممكن تيجي الامتحان معايا بكرا",
+				"ممكن تحل الكلام دة",
+				"ممكن تشرحلي"
+			],
+			"responses": ["رفيقك تعبان دلوقتي ممكن تكلمه بعدين"],
+			"context_set": ""
+		}
+	]
+}

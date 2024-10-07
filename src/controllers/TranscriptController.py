@@ -37,7 +37,7 @@ class TranscriptController:
         model = genai.GenerativeModel('gemini-1.5-pro')
         file_ref = genai.upload_file(self.transcript_path)
 
-        prompt = settings.EXTRACT_STUDENT_INFORMATION_PROMPTm  /
+        prompt = settings.EXTRACT_STUDENT_INFORMATION_PROMPT
         response = model.generate_content(
         [file_ref, prompt],
         generation_config = genai.types.GenerationConfig(

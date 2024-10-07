@@ -1,0 +1,309 @@
+{
+	"intents": [
+		{ "tag": "", "patterns": [], "responses": [], "context_set": "" },
+
+		{
+			"tag": "class",
+			"patterns": [
+				"class 1",
+				"class 2",
+				"where is class 1",
+				"where is class 2",
+				"where class 1",
+				"where class 2"
+			],
+			"responses": ["In Floor 0", "In Basement"],
+			"context_set": ""
+		},
+
+		{
+			"tag": "hall",
+			"patterns": [
+				"hall 3",
+				"hall 4",
+				"where is hall 3",
+				"where is hall 4",
+				"where hall 3",
+				"where hall 4"
+			],
+			"responses": ["In Floor 0", "In Basement"],
+			"context_set": ""
+		},
+		{
+			"tag": "room",
+			"patterns": [
+				"room 1",
+				"room 2",
+				"where is room 1",
+				"where is room 2",
+				"where room 1",
+				"where room 2"
+			],
+			"responses": ["In Floor 0", "In Basement"],
+			"context_set": ""
+		},
+		{
+			"tag": "lab",
+			"patterns": [
+				"lab 1",
+				"lab 2",
+				"lab 3",
+				"lab 4",
+				"lab 5",
+				"lab 6",
+				"where is lab 1",
+				"where is lab 2",
+				"where is lab 3",
+				"where is lab 4",
+				"where is lab 5",
+				"where is lab 6",
+				"where lab 1",
+				"where lab 2",
+				"where lab 3",
+				"where lab 4",
+				"where lab 5",
+				"where lab 6"
+			],
+			"responses": ["In Floor 1", "in the right when You inter fcaih"],
+			"context_set": ""
+		},
+		{
+			"tag": "hall",
+			"patterns": ["hall 1", "where is hall 1", "where hall 1"],
+			"responses": ["In Floor 1", "First floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "hall",
+			"patterns": ["hall 7", "where is hall 7", "where hall 7"],
+			"responses": ["In Floor 2", "Second floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "hall",
+			"patterns": [
+				"hall 2",
+				"where is hall 2",
+				"where hall 2",
+				"hall 8",
+				"where is hall 8",
+				"where hall 8",
+				"hall 5",
+				"where is hall 5",
+				"where hall 5"
+			],
+			"responses": ["In Floor 3", "Third floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "lab",
+			"patterns": [
+				"lab 7",
+				"where is lab 7",
+				"where lab 7",
+				"lab m",
+				"where is lab m",
+				"where lab m",
+				"lab 13",
+				"where is lab 13",
+				"where lab 13"
+			],
+			"responses": ["In Floor 2", "Second floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "lab",
+			"patterns": [
+				"lab 8",
+				"where is lab 8",
+				"where lab 8",
+				"electronic lab",
+				"where is electronic lab",
+				"where electronic lab",
+				"lab 9",
+				"where is lab 9",
+				"where lab 9"
+			],
+			"responses": ["In Floor 3", "Third floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "lab",
+			"patterns": [
+				"lab 10",
+				"where is lab 10",
+				"where lab 10",
+				"lab 11",
+				"where is lab 11",
+				"where lab 11",
+				"lab 12",
+				"where is lab 12",
+				"where lab 12"
+			],
+			"responses": ["In Floor 4", "Fourth floor", "Last floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "hall",
+			"patterns": ["hall 6", "where is hall 6", "where hall 6"],
+			"responses": ["In Floor 4", "Fourth floor", "Last floor"],
+			"context_set": ""
+		},
+		{
+			"tag": "class",
+			"patterns": ["class 4", "where class 4", "where is class 4"],
+			"responses": ["In Floor 4", "Fourth floor", "Last floor"],
+			"context_set": ""
+		},
+
+{
+			"tag": ["specialization", "is"],
+			"patterns": ["is specialization", "specialization is", "is"],
+			"responses": [
+				"your nessessory subjects Database Systems – 2 ,Big Data ,Information Systems Security ,Data Storage and Retrieval & Business intelligence  then you can choose 2 subjects from rest"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": ["specialization", "it"],
+			"patterns": ["it specialization", "specialization it", "it"],
+			"responses": [
+				"your nessessory subjects AI, Computer Architecture ,Multimedia & Communication Technology then you can choose 2 subjects from rest"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["specialization", "ai"],
+			"patterns": ["ai specialization", "specialization ai", "ai"],
+			"responses": [
+				"your nessessory subjects Convex optimization, AI , Machine Learning & Big Data then you can choose 2 subjects from rest"
+			],
+			"context_set": ""
+		},
+			{
+			"tag": "channel",
+			"patterns": [
+				"doctor mohamed said channel",
+				"mohamed said channel",
+				"doctor mohamed elsaid channel",
+				"mohamed elsaid channel",
+				"mohamed elsaid"
+			],
+			"responses": [
+				"You can watch dr.moahmed content:https://www.youtube.com/@DrMohammedElSaid"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["specialization", "cs"],
+			"patterns": ["cs specialization", "specialization cs", "cs"],
+			"responses": [
+				"your nessessory subjects AI , Machine Learning ,OS2 & Co then you can choose 2 subjects from rest"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": "doctor",
+			"patterns": [
+				"doctor amr",
+				"doctor amr ghoniem",
+				"amr",
+				"ghoneim",
+				"ghoniem",
+				"amr ghoniem",
+				"dr.amr ghoniem",
+				"who is doctor amr",
+				"who is doctor amr ghoniem"
+			],
+			"responses": [
+				"CS Academic, AI Researcher & the One Professor to Rule Them All 🇪🇬🇦🇺 \n Studied M.Sc. Computer Science - Machine Learning/Artificial Intelligence & Computational Linguistics M.Sc. Program at Helwan University \nProfessor at Faculty of Computers and Artificial Intelligence Helwan University"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "channel",
+			"patterns": [
+				"doctor amr channel",
+				"amr channel",
+				"doctor amr ghoniem channel",
+				"amr ghoniem channel"
+			],
+			"responses": [
+				"You can watch dr.amr content:https://www.youtube.com/AmrSGhoneim channel conatin many courses like AI ,soft ware engeneering & intro to cs"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": "doctor",
+			"patterns": [
+				"doctor helal ahmed ",
+				"helal",
+				"helal ahmed",
+				"dr.helal ahmed"
+			],
+			"responses": [
+				"You can communicate with him via:helal.a.suleiman@outlook.com"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "doctor",
+			"patterns": [
+				"doctor mohamed said",
+				"mohamed said",
+				"mohamed elsaid",
+				"dr.mohamed said",
+				"dr.mohamed elsaid"
+			],
+			"responses": [
+				"Mohammed is a passionate professional Software Engineer and Technical Software Architect, with 18+ years of career.\n He worked on a wide variety of projects with a wide variety of people from different cultures and backgrounds.\n throughout his career, he worked for many Software companies, he also founded and managed his own startup software house.\n He holds a master’s degree in Image Processing and a PhD. Degree in Natural Language Processing."
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": ["location", "place", "affair"],
+			"patterns": [
+				"student affairs location ",
+				"affairs location",
+				"student",
+				"student affairs place ",
+				"affairs",
+				"affairs place"
+			],
+			"responses": [
+				"First floor at the end of corridor before stairs of basement"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["مكان الشؤون", "الشؤون"],
+			"patterns": ["فين مكان الشؤون", "الشؤون", "فين الشؤون"],
+			"responses": [
+				"اول ما تخش من باب الكليه هتلاقيها اخر الممر على الشمال قبل سلم البدروم"
+			],
+			"context_set": ""
+		},
+
+		{
+			"tag": "الشؤون",
+			"patterns": ["معلومات عن الشؤون", "ممكن اعمل  الشؤون", "شؤون الطلاب"],
+			"responses": [
+				"ممكن تعمل اثبات قيد ممكن تسأل عن اى مشكله تقابلك كطالب و هما هيسعدوك ممكن تقدم اوراق و وصل المصاريف ممكن تختم ورق المترو هناك "
+			],
+			"context_set": ""
+		},
+		{
+			"tag": ["المسجد", "مسجد", "صلاه"],
+			"patterns": ["مسجد", "المسجد", "اصلى فين", "اين المسجد", "فين المسجد"],
+			"responses": [
+				"الدور الاول اول ما تطلع من السلم هتلاقيه على الشمال و حرما مقدما"
+			],
+			"context_set": ""
+		}
+
+	]
+}
