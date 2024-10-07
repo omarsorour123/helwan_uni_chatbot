@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Literali
 
 class Student(BaseModel):
     name: str
@@ -7,3 +6,9 @@ class Student(BaseModel):
     total_gpa: float
     grade: str
     hours: int
+    student_id: str
+
+    def __init__(self, **data):
+
+        data['name'] = data['name'].lower()
+        super().__init__(**data)
