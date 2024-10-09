@@ -1,3 +1,6 @@
+import asyncio
+from functools import lru_cache
+
 from helpers import get_settings
 from . import get_retriever
 
@@ -5,7 +8,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 
-import google.generativeai as genai
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.schema import RunnableLambda
 
 class LLMController:
     def __init__(self):
@@ -17,33 +21,48 @@ class LLMController:
         self.prompt = PromptTemplate(
             input_variables=["context", "student_query"],
             template="""
-            You are a student at a university. You answer questions based on the following context:
+            You are an AI assistant helping university students. Here is a student's question and relevant information to assist them:
 
-            Context:
             {context}
 
             Student Question:
             {student_query}
 
-            Provide a clear and helpful answer to the student's question.
+            Provide a clear, friendly, and natural answer to the student's question based on the context without any further questions.
             """
         )
 
-    def prepare_llm(self):
-        api_key = get_settings().GEMINI_API_KEY
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
 
-        def generate_text(text):
+
+
+def prepare_llm(self):
+    api_key = get_settings().GEMINI_API_KEY
+    model = ChatGoogleGenerativeAI(
+        model="gemini-1.5-pro",
+        temperature=0,
+        api_key=api_key
+    )
+
+    async def generate_text(text):
+        try:
             if isinstance(text, tuple):
                 text = text[1]  # Extract the string part if it's a tuple
-            response = model.generate_content(text)
-            return response.text
+            # Use the new LLM to generate text
+            response = await model.agenerate(text)
+            return response.generations[0].text
+        except Exception as e:
+            print(f"Error generating text: {e}")
+            return "I'm sorry, I couldn't generate a response at this time."
         
-        self.llm = RunnableLambda(func=generate_text)
+    # Assign the RunnableLambda with the updated generate_text function
+    self.llm = RunnableLambda(func=generate_text)
+
+    @lru_cache(maxsize=100)
+    def get_cached_retriever(self):
+        return get_retriever()
 
     def prepare_rag_chain(self):
-        retriever = get_retriever()
+        retriever = self.get_cached_retriever()
         
         def format_docs(docs):
             return "\n\n".join(doc.metadata['responses'] for doc in docs)
@@ -56,18 +75,22 @@ class LLMController:
                 "context": retriever | RunnableLambda(format_docs), 
                 "student_query": RunnablePassthrough()
             }
-            | RunnableLambda(ensure_string)  # Convert to string here
+            | RunnableLambda(ensure_string)
             | self.llm
             | StrOutputParser()
         )
 
-    def process(self, query):
+    async def process(self, query):
         self.prepare_llm()
         self.prepare_prompt()
         self.prepare_rag_chain()
 
-        full_response = self.rag_chain.invoke(query)
-        
-        # Extract only the answer part
-        answer = full_response.split("Provide a clear and helpful answer to the student's question.")[-1].strip()
-        return answer
+        try:
+            full_response = await self.rag_chain.ainvoke(query)
+            
+            
+            answer = full_response.strip()              
+            return answer
+        except Exception as e:
+            print(f"Error processing query: {e}")
+            return "I'm sorry, I couldn't process your query at this time."
