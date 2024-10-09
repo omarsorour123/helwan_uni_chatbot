@@ -1,7 +1,7 @@
 from controllers import TranscriptController
 from models import CollegeCredentials
 
-cardentails = CollegeCredentials(username = '20210605' , password='30403252103092')
+cardentails = CollegeCredentials(username = '' , password='')
 downloader = TranscriptController(cardentails)
 
 print(downloader.process())

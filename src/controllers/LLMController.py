@@ -9,13 +9,15 @@ from langchain.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.schema import RunnableLambda
+from langchain_core.runnables import RunnableLambda
 
 class LLMController:
-    def __init__(self):
+    def __init__(self,username = None):
         self.prompt = None
         self.llm = None
         self.rag_chain = None
+        self.username = username
+
 
     def prepare_prompt(self):
         self.prompt = PromptTemplate(
@@ -34,28 +36,32 @@ class LLMController:
 
 
 
+    def prepare_agent():
 
-def prepare_llm(self):
-    api_key = get_settings().GEMINI_API_KEY
-    model = ChatGoogleGenerativeAI(
-        model="gemini-1.5-pro",
-        temperature=0,
-        api_key=api_key
-    )
+        pass 
+        #self.llm = agent   
 
-    async def generate_text(text):
-        try:
-            if isinstance(text, tuple):
-                text = text[1]  # Extract the string part if it's a tuple
-            # Use the new LLM to generate text
-            response = await model.agenerate(text)
-            return response.generations[0].text
-        except Exception as e:
-            print(f"Error generating text: {e}")
-            return "I'm sorry, I couldn't generate a response at this time."
-        
-    # Assign the RunnableLambda with the updated generate_text function
-    self.llm = RunnableLambda(func=generate_text)
+    def prepare_llm(self):
+        api_key = get_settings().GEMINI_API_KEY
+        model = ChatGoogleGenerativeAI(
+            model="gemini-1.5-pro",
+            temperature=0,
+            api_key=api_key
+        )
+
+        async def generate_text(text):
+            try:
+                if isinstance(text, tuple):
+                    text = text[1]  # Extract the string part if it's a tuple
+                # Use the new LLM to generate text
+                response = await model.agenerate(text)
+                return response.generations[0].text
+            except Exception as e:
+                print(f"Error generating text: {e}")
+                return "I'm sorry, I couldn't generate a response at this time."
+            
+    
+        self.llm = RunnableLambda(func=generate_text)
 
     @lru_cache(maxsize=100)
     def get_cached_retriever(self):

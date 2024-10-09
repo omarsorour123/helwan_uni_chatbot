@@ -1,9 +1,10 @@
 import google.generativeai as genai
 import os
-from models import CollegeCredentials,Student
+
 from helpers.config import Settings, get_settings
 from .DownloadTranscriptController import DownloadTranscriptController
 import json
+from models import CollegeCredentials,Student
 
 
 
@@ -16,6 +17,7 @@ class TranscriptController:
         self.credentials = credentials
 
     def process(self):
+
 
         self.transcript_path = DownloadTranscriptController(credentials=self.credentials).process()
 
