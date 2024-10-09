@@ -1,20 +1,15 @@
-"""from fastapi import  FastAPI
+# main.py
+from fastapi import FastAPI
+from .routes.chain import router
 
-
+# Initialize FastAPI app
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+# Register the routes
+app.include_router(router)
 
-"""
-from controllers import TranscriptController
-from models.CollegeCredentials import CollegeCredentials
-# Create an instance of CollegeCredentials
-credentials = CollegeCredentials(username='20210605', password='30403252103092')
-controller = TranscriptController(credentials=credentials)
-print(controller.process())
-# trans_controller= TranscriptController
+# Run the app (use uvicorn to serve this app, as shown below)
+if __name__ == "__main__":
+    import uvicorn
 
-
-
+    uvicorn.run(app, host="0.0.0.0", port=8000)

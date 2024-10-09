@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class Student(BaseModel):
     name: str
     specialization: str
@@ -10,5 +11,5 @@ class Student(BaseModel):
 
     def __init__(self, **data):
 
-        data['name'] = data['name'].lower()
+        data["name"] = data["name"].lower()
         super().__init__(**data)

@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+transcript.pdf
+trials.ipynb
+test.py
+pyproject.txt
+poetry.txt
+
 # Distribution / packaging
 .Python
 build/
