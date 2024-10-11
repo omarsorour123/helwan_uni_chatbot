@@ -5,6 +5,16 @@ __pycache__/
 
 # C extensions
 *.so
+*.json
+*.pdf
+*.vscode
+
+data
+database
+pdf
+
+trials.ipynb
+test.py
 
 # Distribution / packaging
 .Python
