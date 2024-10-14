@@ -1,6 +1,6 @@
 import google.generativeai as genai
 import os
-
+import shutil
 from helpers.config import Settings, get_settings
 from .DownloadTranscriptController import DownloadTranscriptController
 import json
@@ -9,12 +9,18 @@ from models import CollegeCredentials,Student
 
 
 settings = get_settings()
-class TranscriptController:
+class TranscriptController: 
     FULL_HOURS = [6, 6, 63, 9, 39, 21]
 
     def __init__(self,credentials: CollegeCredentials) -> None:
         
         self.credentials = credentials
+        self.json_directory = "json"
+        self.ensure_json_directory()
+
+    def ensure_json_directory(self):
+        if not os.path.exists(self.json_directory):
+            os.makedirs(self.json_directory)
 
     def process(self):
 
@@ -27,7 +33,18 @@ class TranscriptController:
 
         content = self.add_remaining_hours(content)
 
+        full_transcript ={
+            'student_info': student.model_dump_json(),
 
+            'courses':content
+        }
+        temp_path =f'{student.student_id}.json' 
+        with open(temp_path, 'wb') as f:
+            f.write(json.dumps(full_transcript).encode('utf-8'))
+        final_path = os.path.join(self.json_directory, os.path.basename(temp_path))
+        shutil.move(temp_path, final_path)
+        print(f"Transcript moved to {final_path}")
+                    
         return content , student
 
     def extract_information_from_pdf(self):
