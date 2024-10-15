@@ -13,7 +13,6 @@ data
 database
 pdf
 
-trials.ipynb
 test.py
 
 # Distribution / packaging
