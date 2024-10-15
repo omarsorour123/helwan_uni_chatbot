@@ -1,102 +1,66 @@
+from ..helpers import get_settings
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts import PromptTemplate
-
-from ..helpers import get_settings
-
-import google.generativeai as genai
-import logging
+from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_chroma import Chroma
+from langchain.tools import Tool
+from langchain.agents import AgentType, initialize_agent
 import os
+import logging
 
 # Initialize logger
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app_settings = get_settings()
-genai.configure(api_key=app_settings.GEMINI_API_KEY)
-
 
 class ChainController:
     def __init__(self):
-        try:
-            logger.info("Initializing ChainController...")
-            self.embedding_model = HuggingFaceEmbeddings(
-                model_name="sentence-transformers/all-mpnet-base-v2"
-            )
-            self.gemini_key = app_settings.GEMINI_API_KEY
-            self.vector_database_dir = "database"
-            self.llm = RunnableLambda(func=self.generate_text)
-            self.model = genai.GenerativeModel("gemini-1.5-flash")
-            self.transcript = ""
-            logger.info("ChainController initialized successfully.")
-        except Exception as e:
-            logger.exception("Failed to initialize ChainController.")
-            raise RuntimeError("Initialization error") from e
+        self.prompt = None
+        self.llm = None
+        self.rag_chain = None
+        self.transcript = None
+        self.retriever = None
 
-    def generate_text(self, text):
-        try:
-            logger.info("Generating text...")
-            response = self.model.generate_content(text.text)
-            logger.info("Text generation completed.")
-            return response.text
-        except Exception as e:
-            logger.exception("Failed to generate text.")
-            raise RuntimeError("Text generation error") from e
+        self.embedding_model = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-mpnet-base-v2"
+        )
+        self.vector_database_dir = "database"
 
-    def get_prompt(self):
-        try:
-            logger.info("Creating prompt template...")
-            prompt = PromptTemplate(
-                input_variables=["context", "student_query", "additional_info"],
-                template="""
-                    You are an AI assistant helping university students. Here is a student's question and relevant information to assist them:
+    def prepare_prompt(self):
+        self.prompt = PromptTemplate(
+            input_variables=["context", "student_query"],
+            template="""You are an AI assistant helping university students. Here is a student's question and relevant information to assist them:
 
-                    context:
-                    {context}
+            {context}
 
-                    Student Question:
-                    {student_query}
+            Student Question:
+            {student_query}
 
-                    additional information:
-                    {additional_info}
-
-                    Provide a clear, friendly, and natural answer to the student's question based on the context without any further questions.
-                    The language of the answer will be the same as question.
-                """,
-            )
-            logger.info("Prompt template created successfully.")
-            return prompt
-        except Exception as e:
-            logger.exception("Failed to create prompt template.")
-            raise RuntimeError("Prompt creation error") from e
-
-    def format_docs(self, docs):
-        try:
-            logger.info("Formatting documents...")
-            formatted_docs = "\n\n".join(doc.metadata["responses"] for doc in docs)
-            logger.info("Document formatting completed.")
-            return formatted_docs
-        except Exception as e:
-            logger.exception("Failed to format documents.")
-            raise RuntimeError("Document formatting error") from e
+            Provide a clear, friendly, and natural answer to the student's question based on the context without any further questions or asking for information about him.
+            """,
+        )
 
     def set_transcript(self, transcript: str):
         logger.info("Setting transcript...")
         self.transcript = transcript
         logger.info("Transcript set successfully.")
 
-    def add_info(self, docs):
-        logger.info("Adding additional info...")
-        return self.transcript
+    def prepare_llm(self):
+        api_key = get_settings().GEMINI_API_KEY
+        model = ChatGoogleGenerativeAI(
+            model="gemini-1.5-pro", temperature=0, api_key=api_key
+        )
+
+        self.llm = model
 
     def load_retriever(self):
         try:
             logger.info("Loading retriever...")
             if os.path.exists(self.vector_database_dir):
                 logger.info("Loading existing Chroma database...")
-                vectore_store = Chroma(
+                vector_store = Chroma(
                     persist_directory=self.vector_database_dir,
                     embedding_function=self.embedding_model,
                 )
@@ -106,28 +70,58 @@ class ChainController:
                     "Chroma database not found. Please create the vector store first."
                 )
                 raise FileNotFoundError("Vector store not found.")
-            return vectore_store.as_retriever()
+            return vector_store.as_retriever()
         except Exception as e:
             logger.exception("Failed to load retriever.")
             raise RuntimeError("Retriever loading error") from e
 
-    def get_chain(self):
+    def prepare_agent(self):
+        def get_student_data(input=""):
+            return self.transcript
+
+        get_student_informations = Tool(
+            name="GradeTool",
+            func=get_student_data,
+            description="Invoke this tool when a student asks for something related to their courses or grades or information or GPA.",
+        )
+
+        self.llm = initialize_agent(
+            tools=[get_student_informations],
+            llm=self.llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True,
+        )
+
+    def prepare_rag_chain(self):
+        def format_docs(docs):
+            return "\n\n".join(doc.metadata["responses"] for doc in docs)
+
+        def ensure_string(input_dict):
+            return str(self.prompt.format(**input_dict))
+
+        self.retriever = self.load_retriever()
+
+        self.rag_chain = (
+            {
+                "context": self.retriever | RunnableLambda(format_docs),
+                "student_query": RunnablePassthrough(),
+            }
+            | RunnableLambda(ensure_string)  # Convert to string here
+            | self.llm
+            | RunnableLambda(lambda x: x["output"])  # Ensure the output is a string
+            | StrOutputParser()
+        )
+
+    def process(self, query):
+        self.prepare_llm()
+        self.prepare_agent()
+        self.prepare_prompt()
+        self.prepare_rag_chain()
+
         try:
-            logger.info("Constructing chain...")
-            prompt = self.get_prompt()
-            retriever = self.load_retriever()
-            chain = (
-                {
-                    "context": retriever | self.format_docs,
-                    "student_query": RunnablePassthrough(),
-                    "additional_info": self.add_info,
-                }
-                | prompt
-                | self.llm
-                | StrOutputParser()
-            )
-            logger.info("Chain construction completed successfully.")
-            return chain
+            full_response = self.rag_chain.invoke(query)
         except Exception as e:
-            logger.exception("Failed to construct the chain.")
-            raise RuntimeError("Chain construction error") from e
+            logger.error("Error processing query: %s", e)  # Log the error for debugging
+            return "I can't answer."  # Return the specific string on error
+
+        return full_response

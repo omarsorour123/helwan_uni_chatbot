@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from typing import Optional
 from ..controllers.ChainController import ChainController
 from ..models import StudentModel
-
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -11,10 +10,8 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-
 class Query(BaseModel):
     student_query: str
-
 
 @router.post("/chat")
 async def chat(
@@ -34,7 +31,6 @@ async def chat(
     )
     chain_controller.set_transcript(transcript=transcript)
 
-    rag_chain = chain_controller.get_chain()
-    response = rag_chain.invoke(query.student_query)
+    response = chain_controller.process(query=query.student_query)
 
     return {"username": validated_username, "response": response}

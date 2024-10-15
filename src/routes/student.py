@@ -30,7 +30,7 @@ async def add_student(response: Response, student: StudentCreate):
     response_model=StudentResponse,
     status_code=status.HTTP_201_CREATED,
 )
-async def add_student(request: Request, student: StudentCreate):
+async def add_student(response: Response, request: Request, student: StudentCreate):
     student_model = StudentModel(db_client=request.app.db_client)
 
     if await student_model.username_exists(username=student.username):
@@ -57,6 +57,7 @@ async def add_student(request: Request, student: StudentCreate):
 
         new_student = await student_model.set_student(student_data)
 
+        response.set_cookie(key="validated_username", value=student.username)
         return StudentResponse(
             username=new_student.username,
             message="Student added successfully",
